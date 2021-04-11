@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width",intial-scale="1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <style>
+body{
+ text-align:center;
+ margin:70px;
+ background-image:url('https://media.npr.org/assets/img/2020/02/11/sciencesource_ss22502136_wide-4db0dc0052033a7ceb7b5a2a224144272874adbb-s1600-c85.webp');
+ background-repeat:no-repeat;
+ background-size:cover;
+
+</style>
+</head>
+<body>
+
+
+<form id="myForm">
+
+    <input type="text" id="Country" placeholder="Country" required>
+    <input type="date" id="sd" placeholder="DD-MM-YYYY">
+    <input type="date" id="ed" placeholder="DD-MM-YYYY">
+    <input type="submit" value="submit">
+    <br>
+    <h2 id="Confirmed"></h2>
+    <h2 id="Recovered"></h2>
+    <h2 id="Deaths"></h2>
+
+
+</form>
+</body>
+<script>
+    var myForm=document.getElementById('myForm')
+
+    myForm.addEventListener('submit',function(e){
+    e.preventDefault()
+     var country= document.getElementById('country').value
+     var sd= document.getElementById('dateOne').value
+     var ed= document.getElementById('dateTwo').value
+  
+    var url="https://api.covid19api.com/country/${country}?from=${dateOne}T00:00:00Z&to=${dateTwo}T00:00:00Z";
+    fetch(url)
+    .then((res)=>res.json())
+    .then((res)=>{
+    var length=res.length;
+    var index=length-1;
+    var confirmed=document.grtElementById('confirmed')
+    var recovered=document.grtElementById('recovered')
+    var deaths=document.grtElementById('deaths')
+
+    confirmed.innerHTML="";
+    recovered.innerHTML="";
+    deaths.innerHTML="";
+
+    confirmed.append("total confirmed : "+res[index].Confirmed)
+     recovered.append("total recovered :"+res[index].Recovered)
+      deaths.append("total deaths :"+res[index].Deaths)
+    })
+
+    })
+
+
+</script>
+</html>
